@@ -13,14 +13,14 @@ import User from '../database/models/user.model';
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const price = order.isFree ? 0 : Number(order.price);
+  const price = order.isFree ? 0 : Number(order.price) * 100;
 
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: 'inr',
             unit_amount: price,
             product_data: {
               name: order.eventTitle
@@ -34,7 +34,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
         buyerId: order.buyerId,
       },
       mode: 'payment',
-      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
