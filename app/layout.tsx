@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'Eventrix',
   description: 'for vnrvjiet.',
   icons: {
-    icon: '/assets/images/logo.svg'
+    icon: '/assets/images/lo.svg'
   }
 }
 
